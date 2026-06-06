@@ -6,15 +6,13 @@ Each macro keeps (or deletes) a predefined list of region acronyms covering a sp
 ## Repository layout
 ```
 imagej-macros/
-├── coronal/
-│   ├── retain_ROIs_MB2.ijm              ← midbrain substructures
-│   ├── retain_ROIs_Pons2.ijm            ← pons substructures
-│   ├── retain_ROIs_Pons_MY_broad.ijm    ← pons + medulla, broad functional groups
-│   ├── retain_ROIs_Medulla.ijm          ← medulla substructures
-│   ├── retain_ROIs_Thalamus.ijm         ← thalamus substructures
-│   └── retain_ROIs_CB.ijm               ← cerebellum substructures
-└── sagittal/
-    └── retain_ROIs_BS.ijm               ← top-level brain divisions
+├── retain_ROIs_MB2.ijm              ← midbrain substructures
+├── retain_ROIs_Pons2.ijm            ← pons substructures
+├── retain_ROIs_Pons_MY_broad.ijm    ← pons + medulla, broad functional groups
+├── retain_ROIs_Medulla.ijm          ← medulla substructures
+├── retain_ROIs_Thalamus.ijm         ← thalamus substructures
+├── retain_ROIs_CB.ijm               ← cerebellum substructures
+├── retain_ROIs_BS.ijm               ← top-level brain divisions
 ```
 
 ## How the macros work
