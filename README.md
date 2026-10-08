@@ -1,6 +1,6 @@
 # ImageJ / Fiji macros — ROI filtering by anatomical region
 
-A set of Fiji macros to filter ROIs in the ROI Manager by anatomical name, used for cleaning up atlas-derived ROI sets on mouse brain sections exported from ABBA plugin in ImageJ/Fiji. 
+A set of Fiji macros to filter ROIs in the ROI Manager by anatomical name, used for cleaning up atlas-derived ROI sets obtained from atlas overlay of mouse brain sections exported from ABBA plugin in ImageJ/Fiji. 
 Each macro keeps (or deletes) a predefined list of region acronyms covering a specific brain area.
 
 ## Repository layout
@@ -17,7 +17,7 @@ imagej-macros/
 
 ## How the macros work
 
-All seven macros share the same logic. Each contains a hardcoded array of ROI name acronyms (`targetROINames`). When run:
+All seven macros share the same logic, and each contains a hardcoded array of ROI name acronyms (`targetROINames`). When run:
 1. The macro iterates through every ROI in the ROI Manager.
 2. Each ROI name is compared **case-sensitively** against the target list.
 3. Depending on the `deleteSpecifiedROIs` toggle at the top of the macro:
@@ -29,7 +29,7 @@ Matching uses a custom `caseSensitiveCompare` function — built-in string metho
 
 ## Macro descriptions
 
-### Coronal sections
+### Coronal sections with Kim Atlas/Paxinos & Franklin nomenclature
 **`retain_ROIs_MB2.ijm`** — Midbrain / brainstem substructures. Includes superior and inferior colliculus subdivisions (SC, DCIC, ECIC, CIC…), periaqueductal gray (DLPAG, DMPAG, LPAG, VLPAG…), raphe nuclei (DR, DRD, DRV, DRL, RLi…), substantia nigra (SNC, SNR, SNL…), VTA, cranial nerve nuclei (3N, 4N, MA3, EW…), and reticular / tegmental nuclei.
 
 **`retain_ROIs_Pons2.ijm`** — Pons substructures (detailed). Trigeminal complex (5N, 5Tr, Pr5, Su5…), pontine reticular formation (PnO, PnC, RtTg, DTg, LDTg…), parabrachial / Kölliker–Fuse (PB, LPB, MPB, KF), locus coeruleus and noradrenergic groups (LC, A7, SubC…), raphe (MnR, PMnR, B9…), superior olivary complex and lateral lemniscus (SOC, LSO, MSO, VLL, DLL…), pontine nuclei (Pn, CGPn), and central gray subdivisions.
@@ -42,22 +42,17 @@ Matching uses a custom `caseSensitiveCompare` function — built-in string metho
 
 **`retain_ROIs_CB.ijm`** — Cerebellum substructures. Cerebellar cortex lobules I–X with their granular-layer counterparts (`1Cb`/`1Cb-gr` … `10Cb`/`10Cb-gr`), hemispheric regions (Sim, Crus1, Crus2, Cop, PFl, Fl, PM…), vermis / hemisphere groupings (VERM, HEM, CUL), and deep cerebellar nuclei (CBN, Med, Int, Lat, DN…).
 
-### Sagittal sections
+### Sagittal sections with Allen Brain Atlas nomenclature
 
 **`retain_ROIs_BS.ijm`** — Top-level brain divisions. Keeps only the eight Allen Brain Atlas major divisions: `CB`, `MY`, `P`, `MB`, `TH`, `HY`, `CTX`, `CNU`. Designed for sagittal sections, where a single slice spans all major divisions.
 
-## Typical workflow
-
+## Typical workflow after ABBA
 Macros can be chained on the same ROI set to progressively narrow the region of interest:
+1. Start by importing the ROIs overlay ABBA and loading it into the ROI Manager.
+2. Run `retain_ROIs_BS.ijm` to reduce to major divisions on sagittal sections, or a region-specific macro to keep only the regions of interest for coronal sections.
+3. Inspect and save the cleaned ROI set.
 
-1. Start by importing the ROIs overlay from a folder or ABBA and loading it into the ROI Manager.
-2. Run `retain_ROIs_BS.ijm` to reduce to major divisions on sagittal sections, or a region-specific macro to keep only the area of interest for coronal sections.
-3. Inspect/save the cleaned ROI set.
-
-## Usage
-
-### Running a macro
-
+### Detailed Workflow for Running a macro
 1. Open Fiji.
 2. Load your image and ROI set into the ROI Manager.
 3. Open the macro: **Plugins → Macros → Edit…** and select the `.ijm` file.
@@ -66,15 +61,11 @@ Macros can be chained on the same ROI set to progressively narrow the region of 
 
 ### Toggling retain vs delete
 Edit the top of any macro:
-
 ```ijm
 // false → keep listed ROIs, delete others (default)
 // true  → delete listed ROIs, keep others
 deleteSpecifiedROIs = false;
 ```
-
-### Installing as a permanent menu item
-Copy the `.ijm` file to `Fiji.app/macros/toolsets/` and restart Fiji, or use **Plugins → Macros → Install…** to load it for the current session.
 
 ## Naming conventions
 Region acronyms follow standard mouse brain atlas nomenclature (Paxinos & Franklin / Allen Brain Atlas). Note that matching is **case-sensitive** — `Sol` and `SOl` will not match each other.
